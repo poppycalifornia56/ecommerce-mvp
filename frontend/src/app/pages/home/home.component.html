@@ -1,0 +1,48 @@
+<div class="container mt-4">
+  <!-- Hero Section -->
+  <div class="row mb-5">
+    <div class="col-12">
+      <div class="card bg-primary text-white">
+        <div class="card-body text-center py-5">
+          <h1 class="display-4">Welcome to E-Shop</h1>
+          <p class="lead">Discover amazing products at great prices</p>
+          <a routerLink="/products" class="btn btn-light btn-lg">Shop Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Categories Section -->
+  <div class="row mb-5" *ngIf="categories.length > 0">
+    <div class="col-12">
+      <h2 class="mb-4">Shop by Category</h2>
+    </div>
+    <div class="col-md-4 col-lg-2 mb-3" *ngFor="let category of categories">
+      <div class="card text-center">
+        <div class="card-body">
+          <h6 class="card-title">{{category.name}}</h6>
+          <a [routerLink]="['/products']" [queryParams]="{category: category.slug}" class="btn btn-outline-primary btn-sm">
+            Browse
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Featured Products -->
+  <div class="row mb-5">
+    <div class="col-12">
+      <h2 class="mb-4">Featured Products</h2>
+    </div>
+
+    <div *ngIf="loading" class="col-12 text-center">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6 mb-4" *ngFor="let product of featuredProducts">
+      <app-product-card [product]="product"></app-product-card>
+    </div>
+  </div>
+</div>
