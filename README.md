@@ -50,7 +50,7 @@ A complete e-commerce platform built with Laravel, Angular, Ionic, Redis, and El
 
 1. **Clone the repository**
 ```bash
-git clone <repository-url>
+git clone https://github.com/poppycalifornia56/ecommerce-mvp
 cd ecommerce-mvp
 ```
 
