@@ -1,0 +1,27 @@
+.price-stock {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.price {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: var(--ion-color-primary);
+}
+
+.stock {
+  font-size: 0.9em;
+  color: var(--ion-color-medium);
+}
+
+ion-card-title {
+  cursor: pointer;
+}
+
+img {
+  cursor: pointer;
+  height: 200px;
+  object-fit: cover;
+}

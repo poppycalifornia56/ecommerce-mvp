@@ -1,17 +1,69 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 3
-    </ion-title>
+    <ion-title>Profile</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
+      <ion-title size="large">Profile</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <div *ngIf="user; else loginSection">
+    <!-- User Info -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Welcome, {{user.name}}!</ion-card-title>
+        <ion-card-subtitle>{{user.email}}</ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
+
+    <!-- Menu Items -->
+    <ion-list>
+      <ion-item button (click)="goToCart()">
+        <ion-icon name="cart-outline" slot="start"></ion-icon>
+        <ion-label>
+          Cart
+          <ion-badge *ngIf="cartCount > 0" color="primary">{{cartCount}}</ion-badge>
+        </ion-label>
+        <ion-icon name="chevron-forward" slot="end"></ion-icon>
+      </ion-item>
+
+      <ion-item button>
+        <ion-icon name="receipt-outline" slot="start"></ion-icon>
+        <ion-label>My Orders</ion-label>
+        <ion-icon name="chevron-forward" slot="end"></ion-icon>
+      </ion-item>
+
+      <ion-item button>
+        <ion-icon name="person-outline" slot="start"></ion-icon>
+        <ion-label>Edit Profile</ion-label>
+        <ion-icon name="chevron-forward" slot="end"></ion-icon>
+      </ion-item>
+
+      <ion-item button>
+        <ion-icon name="settings-outline" slot="start"></ion-icon>
+        <ion-label>Settings</ion-label>
+        <ion-icon name="chevron-forward" slot="end"></ion-icon>
+      </ion-item>
+
+      <ion-item button (click)="logout()">
+        <ion-icon name="log-out-outline" slot="start"></ion-icon>
+        <ion-label>Logout</ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <ng-template #loginSection>
+    <ion-card>
+      <ion-card-content class="ion-text-center">
+        <ion-icon name="person-circle-outline" size="large"></ion-icon>
+        <h2>Welcome to E-Shop</h2>
+        <p>Sign in to access your account and start shopping</p>
+        <ion-button expand="block" (click)="goToLogin()">Sign In</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </ng-template>
 </ion-content>

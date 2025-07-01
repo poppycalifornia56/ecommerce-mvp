@@ -1,3 +1,28 @@
-<p>
-  product-card works!
-</p>
+<ion-card>
+  <img [src]="product.image_url" [alt]="product.name" (click)="viewProduct()" />
+
+  <ion-card-header>
+    <ion-card-subtitle>{{product.category.name}}</ion-card-subtitle>
+    <ion-card-title (click)="viewProduct()">{{product.name}}</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+    <p>{{product.description | slice:0:100}}{{product.description.length > 100 ? '...' : ''}}</p>
+
+    <div class="price-stock">
+      <span class="price">${{product.price}}</span>
+      <span class="stock">Stock: {{product.stock_quantity}}</span>
+    </div>
+
+    <ion-button
+      expand="block"
+      (click)="addToCart()"
+      [disabled]="product.stock_quantity === 0">
+      {{product.stock_quantity === 0 ? 'Out of Stock' : 'Add to Cart'}}
+    </ion-button>
+
+    <ion-button expand="block" fill="outline" (click)="viewProduct()">
+      View Details
+    </ion-button>
+  </ion-card-content>
+</ion-card>

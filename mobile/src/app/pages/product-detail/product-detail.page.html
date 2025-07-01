@@ -1,13 +1,60 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>product-detail</ion-title>
+    <ion-title>Product Details</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab2"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">product-detail</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <div *ngIf="loading" class="ion-text-center ion-padding">
+    <ion-spinner></ion-spinner>
+  </div>
+
+  <div *ngIf="!loading && product">
+    <img [src]="product.image_url" [alt]="product.name" class="product-image">
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>{{product.category.name}}</ion-card-subtitle>
+        <ion-card-title>{{product.name}}</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <div class="price-stock-info">
+          <span class="price">${{product.price}}</span>
+          <span class="stock">{{product.stock_quantity}} in stock</span>
+        </div>
+
+        <p class="description">{{product.description}}</p>
+
+        <div class="quantity-selector">
+          <ion-label>Quantity:</ion-label>
+          <div class="quantity-controls">
+            <ion-button size="small" fill="outline" (click)="decrementQuantity()" [disabled]="quantity <= 1">
+              -
+            </ion-button>
+            <span class="quantity-display">{{quantity}}</span>
+            <ion-button size="small" fill="outline" (click)="incrementQuantity()" [disabled]="quantity >= product.stock_quantity">
+              +
+            </ion-button>
+          </div>
+        </div>
+
+        <ion-button
+          expand="block"
+          (click)="addToCart()"
+          [disabled]="product.stock_quantity === 0"
+          class="ion-margin-top">
+          {{product.stock_quantity === 0 ? 'Out of Stock' : 'Add to Cart'}}
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <div *ngIf="!loading && !product" class="ion-text-center ion-padding">
+    <h2>Product not found</h2>
+    <ion-button routerLink="/tabs/tab2">Back to Products</ion-button>
+  </div>
 </ion-content>

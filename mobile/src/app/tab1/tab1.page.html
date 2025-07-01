@@ -1,17 +1,63 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
+    <ion-title>E-Shop</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
+      <ion-title size="large">E-Shop</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <!-- Hero Section -->
+  <ion-card class="hero-card">
+    <ion-card-content class="ion-text-center">
+      <h1>Welcome to E-Shop</h1>
+      <p>Discover amazing products at great prices</p>
+      <ion-button routerLink="/tabs/tab2">Shop Now</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Categories -->
+  <ion-list *ngIf="categories.length > 0">
+    <ion-list-header>
+      <ion-label>Categories</ion-label>
+    </ion-list-header>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6" *ngFor="let category of categories">
+          <ion-card class="category-card" [routerLink]="['/tabs/tab2']" [queryParams]="{category: category.slug}">
+            <ion-card-content class="ion-text-center">
+              <h3>{{category.name}}</h3>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+
+  <!-- Featured Products -->
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Featured Products</ion-label>
+    </ion-list-header>
+
+    <div *ngIf="loading" class="ion-text-center">
+      <ion-spinner></ion-spinner>
+    </div>
+
+    <ion-grid *ngIf="!loading">
+      <ion-row>
+        <ion-col size="12" size-md="6" *ngFor="let product of featuredProducts">
+          <app-product-card [product]="product"></app-product-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
 </ion-content>
