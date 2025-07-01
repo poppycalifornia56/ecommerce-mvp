@@ -25,12 +25,30 @@ class Product extends Model
         'is_active' => 'boolean',
     ];
 
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function cartItems()
+    {
+        return $this->hasMany(CartItem::class);
+    }
+
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
+
     public function toSearchableArray()
     {
         return [
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
+            'price' => $this->price,
+            'category' => $this->category->name ?? '',
+            'is_active' => $this->is_active,
         ];
     }
 }
